@@ -1,0 +1,8 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteBase /framewill2/
+RewriteRule ^/$ index.php [L]
+RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)$ index.php?controller=$1&action=$2
+RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/$ index.php?controller=$1&action=$2
+RewriteRule ^/?([a-zA-Z_0-9]+)$ index.php?controller=$1
+RewriteRule ^/?([a-zA-Z_0-9]+)/$ index.php?controller=$1
