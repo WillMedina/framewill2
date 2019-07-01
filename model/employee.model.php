@@ -1,25 +1,28 @@
 <?php
 
-namespace framewill2\model;
+namespace fw2\model;
 
-class employee extends app
+class employee extends app implements modelo
 {
+
+    private $tabla_asociada = 'employee';
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function test()
+    public function setData(int $id)
     {
-        $datos = array();
-        $stm = $this->sql->prepare('SELECT * FROM category');
-        $stm->execute();
-        foreach ($stm->fetchAll(\PDO::FETCH_OBJ) as $data) {
-            $datos[] = $data;
+        if ($id > 0) {
+            $this->limpiarDatos();
+            $this->llenarDatos($this->tabla_asociada, $id);
         }
+    }
 
-        return $datos;
+    public function test2()
+    {
+        return $this->getData('born');
     }
 
 }

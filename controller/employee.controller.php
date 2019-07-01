@@ -1,8 +1,8 @@
 <?php
 
-namespace framewill2\controller;
+namespace fw2\controller;
 
-class employee extends main
+class employee extends main implements controlador
 {
 
     public $obj;
@@ -10,7 +10,7 @@ class employee extends main
     public function __construct()
     {
         parent::__construct();
-        $this->obj = new \framewill2\model\employee();
+        $this->obj = new \fw2\model\employee();
     }
 
     public function run()
@@ -21,7 +21,7 @@ class employee extends main
     public function test()
     {
         echo '<pre>';
-        var_dump($this->obj->test());
+        print_r($this->obj);
         echo '</pre>';
     }
 

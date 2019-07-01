@@ -1,32 +1,11 @@
 <?php
 
-namespace framewill2\helpers;
+namespace fw2\helpers;
 
 class utils
 {
 
-    // Esto resuelve el problema del OPENSSL
-    // https://jorgearce.es/index.php/post/2017/08/07/file_get_contents%28%29%3A-Failed-to-enable-crypto
-    // https://stackoverflow.com/questions/26148701/file-get-contents-ssl-operation-failed-with-code-1-and-more
-    static $arrContextOptions = array(
-        "ssl" => array(
-            "verify_peer" => false,
-            "verify_peer_name" => false,
-        ),
-    );
     static $objDebug = array();
-
-    static function output_html($stream, $array_cambios = null)
-    {
-        $archivo = file_get_contents($stream, false, stream_context_create(self::$arrContextOptions));
-        if (!is_null($array_cambios)) {
-            //$archivo = file_get_contents($stream, false, stream_context_create(self::$arrContextOptions));
-            $indices = array_keys($array_cambios);
-            $valores = array_values($array_cambios);
-            $archivo = str_replace($indices, $valores, $archivo);
-        }
-        return $archivo;
-    }
 
     static function input_sanitize($string)
     {
@@ -105,22 +84,24 @@ class utils
     public static function volcarDebug()
     {
         $css = 'font-family: verdana; font-size: 14px; padding: 1%';
-
-        if (\framewill2\model\data::$_DEBUG_) {
-            echo "<pre style='$css'>";
-            echo '<h2>Debug:</h2>';
-            foreach (self::getDebug() as $debug) {
-                echo '<b>TIME:</b> ' . $debug->timestamp->format('d-m-Y H:i:s') . "<br />";
-                echo '<b>MENSAJE:</b> ' . $debug->mensaje . "<br />";
-                echo '<b>DONDE:</b> ' . $debug->donde . "<br />";
-                echo '<b>TRAZA:</b><br />' . $debug->traza . "<br />";
-                echo '<br /><hr />';
+        $contador = count(self::getDebug());
+        if ($contador > 0) {
+            if (\fw2\model\data::$_DEBUG_) {
+                echo "<pre style='$css'>";
+                echo '<h3>Debug:</h3>';
+                foreach (self::getDebug() as $debug) {
+                    echo '<b>TIME:</b> ' . $debug->timestamp->format('d-m-Y H:i:s') . "<br />";
+                    echo '<b>MENSAJE:</b> ' . $debug->mensaje . "<br />";
+                    echo '<b>DONDE:</b> ' . $debug->donde . "<br />";
+                    echo '<b>TRAZA:</b><br />' . $debug->traza . "<br />";
+                    echo '<br /><hr />';
+                }
+                echo '</pre>';
+                die();
+            } else {
+                echo "<h2 style='$css'>Ha ocurrido un error interno</h2>";
+                die();
             }
-            echo '</pre>';
-            die();
-        } else {
-            echo "<h2 style='$css'>Ha ocurrido un error interno</h2>";
-            die();
         }
     }
 

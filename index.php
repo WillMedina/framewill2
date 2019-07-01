@@ -1,33 +1,27 @@
 <?php
 
-use framewill2\{
+use fw2\{
     model,
     controller,
     helpers
 };
 
-namespace framewill2;
+namespace fw2;
 
-include 'model/data.php';
-include 'model/conector.php';
-include 'helpers/utils.helper.php';
-include 'controller/main.controller.php';
-include 'model/app.model.php';
+require_once 'model/dependencias.php';
 
 $archivo = '';
 $nombre = '';
 $funcion = '';
 
 if (isset($_GET["controller"]) and strlen($_GET["controller"]) > 0) {
+    $archivo = 'controller/' . helpers\utils::input_sanitize($_GET["controller"]) . '.controller.php';
+    $model = 'model/' . helpers\utils::input_sanitize($_GET["controller"]) . '.model.php';
+    $nombre = __NAMESPACE__ . '\\controller\\' . helpers\utils::input_sanitize($_GET["controller"]);
+
     if (isset($_GET["action"]) and strlen($_GET["action"])) {
-        $archivo = 'controller/' . helpers\utils::input_sanitize($_GET["controller"]) . '.controller.php';
-        $model = 'model/' . helpers\utils::input_sanitize($_GET["controller"]) . '.model.php';
-        $nombre = __NAMESPACE__ . '\\controller\\' . helpers\utils::input_sanitize($_GET["controller"]);
         $funcion = helpers\utils::input_sanitize($_GET["action"]);
     } else {
-        $archivo = 'controller/' . helpers\utils::input_sanitize($_GET["controller"]) . '.controller.php';
-        $model = 'model/' . helpers\utils::input_sanitize($_GET["controller"]) . '.model.php';
-        $nombre = __NAMESPACE__ . '\\controller\\' . helpers\utils::input_sanitize($_GET["controller"]);
         $funcion = 'run';
     }
 } else {

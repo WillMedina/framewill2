@@ -1,6 +1,6 @@
 <?php
 
-namespace framewill2\model;
+namespace fw2\model;
 
 class data
 {
@@ -13,6 +13,8 @@ class data
     static $_TIMEZONE_ = 'America/Lima';
     static $_DEBUG_ = true;
     static $_ROOT_ = __DIR__ . '/../';
+    static $_PREFIJOSP_ = 'fw2_';
+    static $_COMPRESSHTML_ = true;
 
     public static function DSN()
     {
