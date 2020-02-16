@@ -7,6 +7,16 @@ class utils
 
     static $objDebug = array();
 
+    static function crearhash(string $text)
+    {
+        return password_hash($text, PASSWORD_BCRYPT);
+    }
+
+    static function verificarHash(string $password, string $hash)
+    {
+        return password_verify($password, $hash);
+    }
+
     static function input_sanitize($string)
     {
         $array_danger = array("'", '"', '\u2019', '%', '&#8217;');
@@ -103,6 +113,53 @@ class utils
                 die();
             }
         }
+    }
+
+    public static function mes($numero)
+    {
+        $salida = '';
+        switch ($numero) {
+            case 1:
+                $salida = 'enero';
+                break;
+            case 2:
+                $salida = 'febrero';
+                break;
+            case 3:
+                $salida = 'marzo';
+                break;
+            case 4:
+                $salida = 'abril';
+                break;
+            case 5:
+                $salida = 'mayo';
+                break;
+            case 6:
+                $salida = 'junio';
+                break;
+            case 7:
+                $salida = 'julio';
+                break;
+            case 8:
+                $salida = 'agosto';
+                break;
+            case 9:
+                $salida = 'setiembre';
+                break;
+            case 10:
+                $salida = 'octubre';
+                break;
+            case 11:
+                $salida = 'noviembre';
+                break;
+            case 12:
+                $salida = 'diciembre';
+                break;
+            default:
+                break;
+        }
+
+        return $salida;
     }
 
     public static function registrarDebug(\stdClass $evento)
