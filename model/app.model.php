@@ -54,11 +54,11 @@ class app
         $sidebar = new \fw2\helpers\output($root . 'view/layout/sidebar.html');
         $footer = new \fw2\helpers\output($root . 'view/layout/footer.html');
 
-        $head->cambiar('{BOOTSTRAPCSS}', 'static/bootstrap.css');
-        $head->cambiar('{EXTRACSS}', 'static/css/extra.style.css');
+        $head->cambiar('{BOOTSTRAPCSS}', \fw2\model\data::$_HTMLBOOTSTRAPCSS_);
+        $head->cambiar('{EXTRACSS}', \fw2\model\data::$_HTMLCSS_);
 
-        $footer->cambiar('{JQUERY}', 'static/jquery.js');
-        $footer->cambiar('{BOOTSTRAPJS}', 'static/bootstrap.js');
+        $footer->cambiar('{JQUERY}', \fw2\model\data::$_JSJQUERY_);
+        $footer->cambiar('{BOOTSTRAPJS}', \fw2\model\data::$_HTMLBOOTSTRAPJS_);
 
         //fix para cuando no hay funciones
         if (!isset($cambios['{FUNCIONES}'])) {
@@ -75,6 +75,7 @@ class app
         $salida->cambiar('{URL}', \fw2\model\data::$_URL_);
         $salida->cambiar('{TITULO}', \fw2\model\data::$_APLICACION_);
 
+        //Aqui es donde se hacen los cambios que puedan sobreescribir los de arriba
         if (!is_null($cambios) and is_array($cambios)) {
             //var_dump($cambios);
             foreach ($cambios as $key => $value) {

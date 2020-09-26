@@ -15,8 +15,17 @@ class data
     static $_ROOT_ = __DIR__ . '/../';
     static $_PREFIJOSP_ = 'fw2_';
     static $_COMPRESSHTML_ = true;
-    static $_URL_ = ''; 
+    static $_URL_ = '';
     static $_APLICACION_ = '';
+    //
+    //Rutas estaticas relativas a la raiz, cambiar donde haga falta
+    //o reemplazar donde requiera en la variable $cambios
+    //por default quedan estas pero puede ir en blanco tambien
+    //ToDo: Mejorar reconocimiento de nulos en estas variables 
+    static $_HTMLBOOTSTRAPCSS_ = 'static/bootstrap.css';
+    static $_HTMLBOOTSTRAPJS_ = 'static/bootstrap.js';
+    static $_HTMLCSS_ = 'static/css/extra.style.css';
+    static $_JSJQUERY_ = 'static/jquery.js';
 
     public static function DSN()
     {
