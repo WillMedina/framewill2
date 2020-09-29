@@ -1,5 +1,11 @@
 <?php
 
+/* Este archivo es un archivo ejemplo de controlador, no forma parte
+ * de los archivos base del framework y puede ser borrado
+ * si asi lo requiere la personalizacion del proyecto, de la misma
+ * forma puede ser tomado como ejemplo de aprendizaje
+ */
+
 namespace fw2\controller;
 
 class employee extends main implements controlador

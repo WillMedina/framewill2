@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Este archivo aunque no es necesario, suelo usarlo para aplicar 
+ * testeos de datos fuera de la aplicacion, reservando ademas la palabra 
+ * "test" en los URL y dejandola inutilizable en produccion, util para
+ * temas de pentesting.
+ */
 namespace fw2\model;
 
 class test extends app implements modelo

@@ -1,5 +1,11 @@
 <?php
 
+/* Este archivo es un archivo ejemplo de modelo, no forma parte
+ * de los archivos base del framework y puede ser borrado
+ * si asi lo requiere la personalizacion del proyecto, de la misma
+ * forma puede ser tomado como ejemplo
+ */
+
 namespace fw2\model;
 
 class employee extends app implements modelo
