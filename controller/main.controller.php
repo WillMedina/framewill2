@@ -15,12 +15,8 @@ class main implements controlador
     public function run()
     {
         $app = new \fw2\model\app();
-//        if ($app->verificar_logueo()) {
         $cambios = [];
-        $app->render_pagina('home', $cambios);
-//        } else {
-//            $app->render_login();
-//        }
+        $app->render_pagina('welcome', $cambios);
     }
 
 }

@@ -26,8 +26,12 @@ class employee extends main implements controlador
 
     public function test()
     {
-        echo '<pre>';
-        print_r($this->obj);
+        echo '<pre style="font-size: 15px; font-weight: 900">';
+        
+        $this->obj->setData(1);
+        
+        var_dump($this->obj->getData('existe'));
+        //\fw2\helpers\debugger::volcar();
         echo '</pre>';
     }
 

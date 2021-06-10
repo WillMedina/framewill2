@@ -7,6 +7,7 @@ include 'model/data.php';
 include 'helpers/db.helper.php';
 include 'helpers/utils.helper.php';
 include 'helpers/output.helper.php';
+include 'helpers/debugger.helper.php';
 
 include 'controller/controlador.interface.php';
 include 'controller/main.controller.php';

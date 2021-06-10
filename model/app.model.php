@@ -20,6 +20,8 @@ class app
     public final function llenarDatos($nombre_tabla, int $id, $nombresp = null)
     {
         try {
+            //debe existir un estore procedure llamado "listar[nombre tabla]s()"
+
             $sp = (is_null($nombresp) ? 'listar' . $nombre_tabla . 's(?)' : $nombresp . '(?)');
             $sql = 'CALL ' . data::$_PREFIJOSP_ . $sp;
             $stm = $this->sql->prepare($sql);
@@ -37,10 +39,9 @@ class app
             }
 
             //$this->atributos->sql = $sql;
-        } catch (Exception $exc) {
-            helpers\utils::registrarDebug(
-                    helpers\utils::crearEvento("ERROR FILLING DATA ON MAIN MODEL", 'app.model.php', $exc->getTraceAsString())
-            );
+        } catch (\Throwable $e) {
+            helpers\debugger::reportar('Error en la obtencion de datos', 'app.model.php', $e->getTraceAsString(), $e);
+            helpers\debugger::volcar();
         }
     }
 
@@ -54,11 +55,9 @@ class app
         $sidebar = new \fw2\helpers\output($root . 'view/layout/sidebar.html');
         $footer = new \fw2\helpers\output($root . 'view/layout/footer.html');
 
-        $head->cambiar('{BOOTSTRAPCSS}', \fw2\model\data::$_HTMLBOOTSTRAPCSS_);
-        $head->cambiar('{EXTRACSS}', \fw2\model\data::$_HTMLCSS_);
+        $head->cambiar('{CSS}', \fw2\model\data::$_HTMLCSS_);
 
         $footer->cambiar('{JQUERY}', \fw2\model\data::$_JSJQUERY_);
-        $footer->cambiar('{BOOTSTRAPJS}', \fw2\model\data::$_HTMLBOOTSTRAPJS_);
 
         //fix para cuando no hay funciones
         if (!isset($cambios['{FUNCIONES}'])) {
@@ -122,7 +121,10 @@ class app
             }
 
             return $salida;
-        } catch (Exception $e) {
+        } catch (\Throable $e) {
+            helpers\debugger::reportar('Warning: excepcion interna con el manejo de store procedures',
+                    'app.model.php', $e->getTraceAsString(), $e);
+            helpers\debugger::volcar();
             return $e;
         }
     }

@@ -5,8 +5,6 @@ namespace fw2\helpers;
 class utils
 {
 
-    static $objDebug = array();
-
     static function crearhash(string $text)
     {
         return password_hash($text, PASSWORD_BCRYPT);
@@ -17,11 +15,18 @@ class utils
         return password_verify($password, $hash);
     }
 
+    static function input_url_names($string)
+    {
+        
+    }
+
     static function input_sanitize($string)
     {
-        $array_danger = array("'", '"', '\u2019', '%', '&#8217;');
-        $string = str_replace($array_danger, "", $string);
-        $string = filter_var($string, FILTER_SANITIZE_STRING);
+        if (strlen($string > 0)) {
+            $array_danger = array("'", '"', '\u2019', '\u2018', '%', '&#8217;','&#8216;');
+            $string = str_replace($array_danger, "", $string);
+            $string = filter_var($string, FILTER_SANITIZE_STRING);
+        }
         return $string;
     }
 
@@ -81,40 +86,6 @@ class utils
         return $salida;
     }
 
-    static function crearEvento($mensaje, $donde, $traza)
-    {
-        $evento = new \stdClass();
-        $evento->timestamp = new \DateTime();
-        $evento->mensaje = $mensaje;
-        $evento->donde = $donde;
-        $evento->traza = $traza;
-        return $evento;
-    }
-
-    public static function volcarDebug()
-    {
-        $css = 'font-family: verdana; font-size: 14px; padding: 1%';
-        $contador = count(self::getDebug());
-        if ($contador > 0) {
-            if (\fw2\model\data::$_DEBUG_) {
-                echo "<pre style='$css'>";
-                echo '<h3>Debug:</h3>';
-                foreach (self::getDebug() as $debug) {
-                    echo '<b>TIME:</b> ' . $debug->timestamp->format('d-m-Y H:i:s') . "<br />";
-                    echo '<b>MENSAJE:</b> ' . $debug->mensaje . "<br />";
-                    echo '<b>DONDE:</b> ' . $debug->donde . "<br />";
-                    echo '<b>TRAZA:</b><br />' . $debug->traza . "<br />";
-                    echo '<br /><hr />';
-                }
-                echo '</pre>';
-                die();
-            } else {
-                echo "<h2 style='$css'>Ha ocurrido un error interno</h2>";
-                die();
-            }
-        }
-    }
-
     public static function mes($numero)
     {
         $salida = '';
@@ -160,16 +131,6 @@ class utils
         }
 
         return $salida;
-    }
-
-    public static function registrarDebug(\stdClass $evento)
-    {
-        array_push(self::$objDebug, $evento);
-    }
-
-    public static function getDebug()
-    {
-        return self::$objDebug;
     }
 
 }

@@ -12,10 +12,9 @@ class db
         try {
             date_default_timezone_set(\fw2\model\data::$_TIMEZONE_);
             $this->objCon = new \PDO(\fw2\model\data::DSN(), \fw2\model\data::$_USUARIO_, \fw2\model\data::$_PASSWORD_);
-        } catch (PDOException $e) {
-            $evento = utils::crearEvento($e->getMessage(), 'db.helper.php', $e->getTraceAsString());
-            utils::registrarDebug($evento);
-            utils::volcarDebug(); //se llama aqui porque el sistema no deberia hacer nada mas al no conectar
+        } catch (\Throwable $e) {
+            debugger::reportar('Error en la conexi&oacute;n de base de datos', 'db.helper.php', $e->getTraceAsString(), $e);
+            debugger::volcar(true);
         }
     }
 

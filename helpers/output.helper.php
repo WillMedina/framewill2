@@ -23,17 +23,9 @@ class output
             if (file_exists($nombre_archivo)) {
                 $this->stream = file_get_contents($nombre_archivo, false, stream_context_create(self::$arrContextOptions));
             } else {
-                utils::registrarDebug(
-                        utils::crearEvento("$nombre_archivo NOT FOUND", 'output.helper.php:' . __LINE__, null)
-                );
-
                 $this->stream = null;
             }
-        } catch (Exception $exc) {
-            utils::registrarDebug(
-                    utils::crearEvento("ERROR GATHERING DATA", 'output.helper.php:' . __LINE__, $exc->getTraceAsString())
-            );
-
+        } catch (\Exception $exc) {
             $this->stream = null;
         }
     }
