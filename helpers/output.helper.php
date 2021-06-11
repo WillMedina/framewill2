@@ -25,7 +25,9 @@ class output
             } else {
                 $this->stream = null;
             }
-        } catch (\Exception $exc) {
+        } catch (\Throwable $e) {
+            debugger::reportar('Error generando stream', 'output.helper.php', $e->getTraceAsString(), $e);
+            debugger::volcar();
             $this->stream = null;
         }
     }
