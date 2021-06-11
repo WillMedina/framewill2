@@ -7,7 +7,14 @@ class utils
 
     static function crearhash(string $text)
     {
-        return password_hash($text, PASSWORD_BCRYPT);
+        $algoritmo = PASSWORD_ARGON2ID;
+        $opciones = [
+            'memory_cost' => PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+            'time_cost' => 4,
+            'threads' => 2
+        ];
+
+        return password_hash($text, $algoritmo, $opciones);
     }
 
     static function verificarHash(string $password, string $hash)
@@ -15,15 +22,24 @@ class utils
         return password_verify($password, $hash);
     }
 
-    static function input_url_names($string)
+    static function get_pseudotoken()
     {
-        
+        $seguridad = true;
+        try {
+            $t1 = openssl_random_pseudo_bytes(32, $seguridad);
+            $t2 = bin2hex($t1);
+            return $t2;
+        } catch (\Throwable $e) {
+            debugger::reportar('Error generando tokens', 'utils.helper.php', $e->getTraceAsString(), $e);
+            debugger::volcar();
+            return null;
+        }
     }
 
     static function input_sanitize($string)
     {
         if (strlen($string > 0)) {
-            $array_danger = array("'", '"', '\u2019', '\u2018', '%', '&#8217;','&#8216;');
+            $array_danger = array("'", '"', '\u2019', '\u2018', '%', '&#8217;', '&#8216;');
             $string = str_replace($array_danger, "", $string);
             $string = filter_var($string, FILTER_SANITIZE_STRING);
         }
