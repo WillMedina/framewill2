@@ -121,7 +121,7 @@ class app
             }
 
             return $salida;
-        } catch (\Throable $e) {
+        } catch (\Throwable $e) {
             helpers\debugger::reportar('Warning: excepcion interna con el manejo de store procedures',
                     'app.model.php', $e->getTraceAsString(), $e);
             helpers\debugger::volcar();

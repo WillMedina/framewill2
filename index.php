@@ -20,30 +20,31 @@ $archivo = '';
 $nombre = '';
 $funcion = '';
 
-$get_controller = filter_input(INPUT_GET, 'controller', FILTER_SANITIZE_STRING) ?? 'main';
-$get_action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? 'run';
+try {
+    $get_controller = filter_input(INPUT_GET, 'controller', FILTER_SANITIZE_STRING) ?? 'main';
+    $get_action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? 'run';
 
-if (strlen($get_controller) > 0) {
-    $archivo = 'controller/' . helpers\utils::input_sanitize($get_controller) . '.controller.php';
-    $model = 'model/' . helpers\utils::input_sanitize($get_controller) . '.model.php';
-    $nombre = __NAMESPACE__ . '\\controller\\' . helpers\utils::input_sanitize($get_controller);
+    if (strlen($get_controller) > 0) {
+        $archivo = 'controller/' . helpers\utils::input_sanitize($get_controller) . '.controller.php';
+        $model = 'model/' . helpers\utils::input_sanitize($get_controller) . '.model.php';
+        $nombre = __NAMESPACE__ . '\\controller\\' . helpers\utils::input_sanitize($get_controller);
 
-    if (strlen($get_action) > 0) {
-        $funcion = helpers\utils::input_sanitize($get_action);
+        if (strlen($get_action) > 0) {
+            $funcion = helpers\utils::input_sanitize($get_action);
+        } else {
+            $funcion = 'run';
+        }
     } else {
+        $nombre = __NAMESPACE__ . '\\controller\\main';
         $funcion = 'run';
     }
-} else {
-    $nombre = __NAMESPACE__ . '\\controller\\main';
-    $funcion = 'run';
-}
 
-if (file_exists($archivo) and $archivo != 'controller/main.controller.php') {
-    require $archivo;
-    require $model;
-}
+    if (file_exists($archivo) and $archivo != 'controller/main.controller.php') {
+        require $archivo;
+        require $model;
+    }
 
-try {
+
     if (method_exists($nombre, $funcion)) {
         $controller = new $nombre();
         $controller->$funcion();
@@ -51,7 +52,7 @@ try {
         helpers\debugger::reportar('No existe el m&eacute;todo ' . $function, 'index.php');
         helpers\debugger::volcar(true);
     }
-} catch (\Throable $e) {
+} catch (\Throwable $e) {
     //echo $e->getMessage();
     helpers\debugger::reportar('Error interno desconocido', 'index.php', $e->getTraceAsString(), $e);
     helpers\debugger::volcar(true);
