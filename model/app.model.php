@@ -64,6 +64,10 @@ class app
             $footer->cambiar('{FUNCIONES}', 'static/js/' . $template . '.funciones.js');
         }
 
+        if (!isset($cambios['{ESTILO}'])) {
+            $head->cambiar('{ESTILO}', 'static/css/' . $template . '.estilos.css');
+        }
+
         $salida->cambiar('{HEAD}', $head->print(true));
         $salida->cambiar('{SIDEBAR}', $sidebar->print(true));
         $salida->cambiar('{HEADER}', $header->print(true));
