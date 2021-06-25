@@ -1,6 +1,12 @@
 Options +FollowSymLinks
 RewriteEngine on
-RewriteBase /app/
+
+#esto deberia ser solo / si tu app esta en raiz, sino el nombre de la carpeta
+RewriteBase /
+#Operacion para que todos las llamadas a www sean dirigidas a dominio sin www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
 #RewriteBase /beta/
 RewriteRule ^/$ index.php [L]
 
