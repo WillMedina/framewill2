@@ -55,17 +55,17 @@ class app
         $sidebar = new \fw2\helpers\output($root . 'view/layout/sidebar.html');
         $footer = new \fw2\helpers\output($root . 'view/layout/footer.html');
 
-        $head->cambiar('{CSS}', \fw2\model\data::$_HTMLCSS_);
+        $head->cambiar('{CSS}', \fw2\model\data::$_URL_ . '/' . \fw2\model\data::$_HTMLCSS_);
 
-        $footer->cambiar('{JQUERY}', \fw2\model\data::$_JSJQUERY_);
+        $footer->cambiar('{JQUERY}', \fw2\model\data::$_URL_ . '/' . \fw2\model\data::$_JSJQUERY_);
 
         //fix para cuando no hay funciones
         if (!isset($cambios['{FUNCIONES}'])) {
-            $footer->cambiar('{FUNCIONES}', 'static/js/' . $template . '.funciones.js');
+            $footer->cambiar('{FUNCIONES}', \fw2\model\data::$_URL_ . '/static/js/' . $template . '.funciones.js');
         }
 
         if (!isset($cambios['{ESTILO}'])) {
-            $head->cambiar('{ESTILO}', 'static/css/' . $template . '.estilos.css');
+            $head->cambiar('{ESTILO}', \fw2\model\data::$_URL_ . '/static/css/' . $template . '.estilos.css');
         }
 
         $salida->cambiar('{HEAD}', $head->print(true));
