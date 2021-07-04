@@ -5,18 +5,17 @@ RewriteEngine on
 RewriteBase /
 #Operacion para que todos las llamadas a www sean dirigidas a dominio sin www
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+RewriteRule ^(.*)$ https://%1/$1 [R=301]
 
-#RewriteBase /beta/
-RewriteRule ^/$ index.php [L]
+RewriteRule ^/$ index.php
 
 #LINKS DE TERCER NIVEL PARA PARAMETROS
-RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)$ index.php?controller=$1&action=$2&param=$3
-RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/$ index.php?controller=$1&action=$2&param=$3
+RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)$ index.php?controller=$1&action=$2&param=$3 [QSA]
+RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/$ index.php?controller=$1&action=$2&param=$3 [QSA]
 
 #LINKS DE SEGUNDO NIVEL PARA ACCIONES
-RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)$ index.php?controller=$1&action=$2
-RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/$ index.php?controller=$1&action=$2
+RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)$ index.php?controller=$1&action=$2 [QSA]
+RewriteRule ^/?([a-zA-Z_0-9]+)/([a-zA-Z_0-9]+)/$ index.php?controller=$1&action=$2 [QSA]
 
 #LINKS DE PRIMER NIVEL PARA CONTROLADORES
 RewriteRule ^/?([a-zA-Z_0-9]+)$ index.php?controller=$1
