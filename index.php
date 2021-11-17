@@ -1,12 +1,12 @@
 <?php
 
+namespace fw2;
+
 use fw2\{
     model,
     controller,
     helpers
 };
-
-namespace fw2;
 
 session_start();
 
