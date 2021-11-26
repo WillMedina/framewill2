@@ -49,11 +49,11 @@ try {
         $controller = new $nombre();
         $controller->$funcion();
     } else {
-        helpers\debugger::reportar('No existe el m&eacute;todo ' . $function, 'index.php');
-        helpers\debugger::volcar(true);
+        \fw2\helpers\debugger::reportar('No existe el m&eacute;todo ' . $function, 'index.php');
+        \fw2\helpers\debugger::volcar(true);
     }
 } catch (\Throwable $e) {
     //echo $e->getMessage();
-    helpers\debugger::reportar('Error interno desconocido', 'index.php', $e->getTraceAsString(), $e);
-    helpers\debugger::volcar(true);
+    \fw2\helpers\debugger::reportar('Error interno desconocido', 'index.php', $e->getTraceAsString(), $e);
+    \fw2\helpers\debugger::volcar(true);
 }

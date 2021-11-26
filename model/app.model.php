@@ -40,8 +40,8 @@ class app
 
             //$this->atributos->sql = $sql;
         } catch (\Throwable $e) {
-            helpers\debugger::reportar('Error en la obtencion de datos', 'app.model.php', $e->getTraceAsString(), $e);
-            helpers\debugger::volcar();
+            \fw2\helpers\debugger::reportar('Error en la obtencion de datos', 'app.model.php', $e->getTraceAsString(), $e);
+            \fw2\helpers\debugger::volcar();
         }
     }
 
@@ -126,9 +126,9 @@ class app
 
             return $salida;
         } catch (\Throwable $e) {
-            helpers\debugger::reportar('Warning: excepcion interna con el manejo de store procedures',
+            \fw2\helpers\debugger::reportar('Warning: excepcion interna con el manejo de store procedures',
                     'app.model.php', $e->getTraceAsString(), $e);
-            helpers\debugger::volcar();
+            \fw2\helpers\debugger::volcar();
             return $e;
         }
     }
