@@ -49,7 +49,7 @@ try {
         $controller = new $nombre();
         $controller->$funcion();
     } else {
-        \fw2\helpers\debugger::reportar('No existe el m&eacute;todo ' . $function, 'index.php');
+        \fw2\helpers\debugger::reportar('No existe el m&eacute;todo ' . $funcion, 'index.php');
         \fw2\helpers\debugger::volcar(true);
     }
 } catch (\Throwable $e) {
