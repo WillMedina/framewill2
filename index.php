@@ -25,12 +25,12 @@ try {
     $get_action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? 'run';
 
     if (strlen($get_controller) > 0) {
-        $archivo = 'controller/' . helpers\utils::input_sanitize($get_controller) . '.controller.php';
-        $model = 'model/' . helpers\utils::input_sanitize($get_controller) . '.model.php';
-        $nombre = __NAMESPACE__ . '\\controller\\' . helpers\utils::input_sanitize($get_controller);
+        $archivo = 'controller/' . \fw2\helpers\utils::input_sanitize($get_controller) . '.controller.php';
+        $model = 'model/' . \fw2\helpers\utils::input_sanitize($get_controller) . '.model.php';
+        $nombre = __NAMESPACE__ . '\\controller\\' . \fw2\helpers\utils::input_sanitize($get_controller);
 
         if (strlen($get_action) > 0) {
-            $funcion = helpers\utils::input_sanitize($get_action);
+            $funcion = \fw2\helpers\utils::input_sanitize($get_action);
         } else {
             $funcion = 'run';
         }
